@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Escape from cat paws</string>
+
+    <!-- entrance strings-->
+    <string name="welcome_string">Tap Here to Start!</string>
+    <string name="welcome_notes">Zixun Xiang and Yaqing Zhu\'s app</string>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <!-- Menu bar strings -->
+    <string name="toggle_music">Toggle Music</string>
+    <string name="back_to_lobby">Lobby</string>
+    <string name="quit_game">Quit</string>
+
+    <!-- Home page strings -->
+    <string name="home_title">Lobby</string>
+    <string name="game_button">new game</string>
+    <string name="score_button">scores</string>
+    <string name="edit_button">add cat paws</string>
+    <string name="reference_button">about</string>
+    <string name="title_activity_main2">MainActivity2</string>
+
+    <!-- Game strings -->
+    <string name="instruction">Avoid cat paws!\n Click yarn ball to get your random one\n and keep going!</string>
+    <string name="game_start">GO!</string>
+
+    <!-- Editing strings -->
+    <string name="upload">upload</string>
+    <string name="submit">submit</string>
+    <string name="leave_edit_page">Back</string>
+
+    <!-- Score page strings -->
+    <string name="score_page_title">Your top 5 scores</string>
+    <string name="player_scores">Check your top 5 scores</string>
+    <string name="all_user_scores">Check top 5 scores</string>
+    <string name="leave_score_page">Back</string>
+
+</resources>
