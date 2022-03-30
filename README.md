@@ -4,4 +4,4 @@
  TODO list：
  
  - Gameplay part (Zixun)
- - SQL part(Yaqing)
+ - SQL part (Yaqing)
