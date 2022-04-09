@@ -25,13 +25,21 @@
 
     <!-- Editing strings -->
     <string name="upload">upload</string>
+    <string name="regenerate">Generate cat paws again!</string>
     <string name="submit">submit</string>
     <string name="leave_edit_page">Back</string>
+    <string name="edit_intro">Please upload your custom image</string>
+    <string name="edit_intro2">Please select one cat paw\n or click reload to generate cat paws again</string>
+    <string name="select_gallery">Open album</string>
+    <string name="select_camera">Take picture now!</string>
+    <string name="select_leave">Back</string>
 
     <!-- Score page strings -->
     <string name="score_page_title">Your top 5 scores</string>
     <string name="player_scores">Check your top 5 scores</string>
     <string name="all_user_scores">Check top 5 scores</string>
     <string name="leave_score_page">Back</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
