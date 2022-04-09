@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/app/src/main/res/layout/edit_image.xml" value="0.5541666666666667" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/app/src/main/res/layout/gameplay.xml" value="0.33425925925925926" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/app/src/main/res/layout/play_game.xml" value="0.5541666666666667" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/app/src/main/res/layout/sample_ball_view.xml" value="0.33425925925925926" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/app/src/main/res/layout/select_image.xml" value="0.5541666666666667" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/app/src/main/res/layout/selecting_image.xml" value="0.5541666666666667" />
         <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17" />
         <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
         <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/app/src/main/res/layout/app_bar_home_page.xml" value="0.5541666666666667" />
