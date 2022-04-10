@@ -7,6 +7,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,9 +19,27 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.csi5175final.BallView;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PlayGame extends AppCompatActivity {
 
@@ -56,6 +76,54 @@ public class PlayGame extends AppCompatActivity {
                 ConstraintLayout container  = (ConstraintLayout) findViewById(R.id.game_scene);
                 BallView ballView = new BallView(PlayGame.this);
                 container.addView(ballView);
+            }
+        });
+    }
+
+    private void postScore(String id, int score){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    String url = "HTTP://18.191.10.52:3000/score";
+                    String urlParameters  = "id="+id+"&num2=" + score;
+                    InputStream stream = null;
+                    byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+                    int postDataLength = postData.length;
+                    URL urlObj = new URL(url);
+                    HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+                    conn.setDoOutput(true);
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    conn.setRequestProperty("charset", "utf-8");
+                    conn.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
+                    conn.setReadTimeout(10000);
+                    conn.setConnectTimeout(15000);
+
+                    conn.connect();
+
+                    try(DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+                        wr.write( postData );
+                        wr.flush();
+                    }
+
+                    stream = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"), 8);
+                    String result = reader.readLine();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(PlayGame.this, R.string.post_score, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
     }

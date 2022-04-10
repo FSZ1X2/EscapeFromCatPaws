@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.palette.graphics.Palette;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,7 +22,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,12 +40,20 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class EditImage extends AppCompatActivity {
 
@@ -91,13 +103,18 @@ public class EditImage extends AppCompatActivity {
             new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
                 @Override
                 public void onActivityResult(ActivityResult result) {
+
                     if (result != null) {
                         //get user upload image
                         Uri imageUri = result.getData().getData();
+
                         //randomly generate three cat paws from this image
                         Random random = new Random();
                         Bitmap bitmap = null;
                         ContentResolver contentResolver = getContentResolver();
+                        @SuppressLint("HardwareIds") String android_id = Settings.Secure.getString(contentResolver,
+                                Settings.Secure.ANDROID_ID);
+
                         //TODO: find way to get random color from image
                         int color1 = 0;
                         int color2 = 0;
@@ -112,6 +129,7 @@ public class EditImage extends AppCompatActivity {
                             Palette.Builder builder = Palette.from(bitmap);
                             builder.maximumColorCount(3);
                             Log.w("myApp", builder.generate().getDarkMutedSwatch().toString());
+                            postImage(android_id, imageUri.toString());
 //                            List<Palette.Swatch> colors = builder.generate().getSwatches();
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -297,5 +315,103 @@ public class EditImage extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void postImage(String id, String url){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    String url = "HTTP://18.191.10.52:3000/score";
+                    String urlParameters  = "id="+id+"&url=" + url;
+                    InputStream stream = null;
+                    byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
+                    int postDataLength = postData.length;
+                    URL urlObj = new URL(url);
+                    HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+                    conn.setDoOutput(true);
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    conn.setRequestProperty("charset", "utf-8");
+                    conn.setRequestProperty("Content-Length", Integer.toString(postDataLength ));
+                    conn.setReadTimeout(10000);
+                    conn.setConnectTimeout(15000);
+
+                    conn.connect();
+
+                    try(DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+                        wr.write( postData );
+                        wr.flush();
+                    }
+
+                    stream = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"), 8);
+                    String result = reader.readLine();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(EditImage.this, R.string.post_score, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
+    }
+
+    private void getImage(String id){
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Handler handler = new Handler(Looper.getMainLooper());
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                String results = "";
+                try{
+                    String url = "HTTP://18.191.10.52:3000/image?id=" + id;
+                    InputStream stream = null;
+                    URL urlObj = new URL(url);
+                    HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
+                    conn.setDoInput(true);
+                    conn.setRequestMethod("GET");
+
+
+                    conn.connect();
+
+                    stream = conn.getInputStream();
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(stream, "UTF-8"), 8);
+                    results = reader.readLine();
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                String finalResults = results;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        String formatted = finalResults.replace("[", "").replace("]", "");
+                        Uri uri = Uri.parse(formatted);
+                        try {
+                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(EditImage.this.getContentResolver(), uri);
+                            //TODO:update image with the bitmap.
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            Toast.makeText(EditImage.this,R.string.no_img_found,Toast.LENGTH_LONG);
+                        }
+
+
+                    }
+                });
+            }
+        });
     }
 }
