@@ -1,0 +1,74 @@
+{
+    "logs": [
+        {
+            "outputFile": "E:\\STUDY\\CU\\Winter2022Course\\FinalProject\\EscapeFromCatPaws\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\OriharaN40\\.gradle\\caches\\transforms-3\\eac9e08fa28d6671a6f932ada5a5a9c7\\transformed\\material-1.5.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,47,48,49,50,51,52,53,54",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1335,1410,1521,1610,1711,1818,1925,2024,2127,2215,2339,2441,2543,2659,2761,2875,3003,3119,3241,3377,3497,3631,3751,3863,4078,4195,4319,4449,4571,4709,4843,4959",
+                        "endColumns": "74,110,88,100,106,106,98,102,87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,116,123,129,121,137,133,115,119",
+                        "endOffsets": "1405,1516,1605,1706,1813,1920,2019,2122,2210,2334,2436,2538,2654,2756,2870,2998,3114,3236,3372,3492,3626,3746,3858,3984,4190,4314,4444,4566,4704,4838,4954,5074"
+                    }
+                },
+                {
+                    "source": "E:\\STUDY\\CU\\Winter2022Course\\FinalProject\\EscapeFromCatPaws\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "-1",
+                        "startColumns": "-1",
+                        "startOffsets": "-1"
+                    },
+                    "to": {
+                        "startLines": "9",
+                        "startColumns": "4",
+                        "startOffsets": "732",
+                        "endLines": "21",
+                        "endColumns": "12",
+                        "endOffsets": "1330"
+                    }
+                },
+                {
+                    "source": "E:\\STUDY\\CU\\Winter2022Course\\FinalProject\\EscapeFromCatPaws\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "17",
+                        "endLines": "5",
+                        "endColumns": "12",
+                        "endOffsets": "213"
+                    },
+                    "to": {
+                        "startLines": "55",
+                        "startColumns": "4",
+                        "startOffsets": "5079",
+                        "endLines": "58",
+                        "endColumns": "12",
+                        "endOffsets": "5275"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\OriharaN40\\.gradle\\caches\\transforms-3\\97988b0f28a513a04038e9dd724181a1\\transformed\\appcompat-1.4.1\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startColumns": "-1,-1,-1,-1,-1,-1,-1,-1",
+                        "startOffsets": "-1,-1,-1,-1,-1,-1,-1,-1"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,46",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "100,170,254,338,434,536,638,3989",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "165,249,333,429,531,633,727,4073"
+                    }
+                }
+            ]
+        }
+    ]
+}

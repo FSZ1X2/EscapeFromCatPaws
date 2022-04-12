@@ -1,0 +1,134 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.csi5175final"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="32" />
+9-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml
+10    <!-- get camera feature -->
+11    <uses-feature
+11-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:5:5-6:45
+12        android:name="android.hardware.camera"
+12-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:5:19-57
+13        android:required="true" />
+13-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:6:19-42
+14    <!-- permission for upload image -->
+15    <uses-permission android:name="android.permission.CAMERA" />
+15-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:8:5-65
+15-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:8:22-62
+16    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+16-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:9:5-81
+16-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:9:22-78
+17    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+17-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:10:5-79
+17-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:10:22-76
+18    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+18-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:11:5-75
+18-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:11:22-73
+19    <uses-permission android:name="android.permission.INTERNET" />
+19-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:12:5-66
+19-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:12:22-64
+20
+21    <application
+21-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:14:5-43:19
+22        android:allowBackup="true"
+22-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:15:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.7.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\46678933633e897331f6cbff7aabb141\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+24        android:debuggable="true"
+25        android:icon="@mipmap/ic_launcher"
+25-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:16:9-43
+26        android:label="@string/app_name"
+26-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:17:9-41
+27        android:roundIcon="@mipmap/ic_launcher_round"
+27-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:18:9-54
+28        android:supportsRtl="true"
+28-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:19:9-35
+29        android:testOnly="true"
+30        android:theme="@style/Theme.CSI5175Final" >
+30-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:20:9-50
+31        <activity
+31-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:21:9-23:40
+32            android:name="com.example.csi5175final.CheckScore"
+32-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:22:13-39
+33            android:exported="false" />
+33-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:23:13-37
+34        <activity
+34-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:24:9-26:40
+35            android:name="com.example.csi5175final.EditImage"
+35-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:25:13-38
+36            android:exported="false" />
+36-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:26:13-37
+37        <activity
+37-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:27:9-29:40
+38            android:name="com.example.csi5175final.PlayGame"
+38-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:28:13-37
+39            android:exported="false" />
+39-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:29:13-37
+40        <activity
+40-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:30:9-33:50
+41            android:name="com.example.csi5175final.HomePage"
+41-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:31:13-37
+42            android:exported="false"
+42-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:32:13-37
+43            android:label="@string/home_title" />
+43-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:33:13-47
+44        <activity
+44-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:34:9-42:20
+45            android:name="com.example.csi5175final.MainActivity"
+45-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:35:13-41
+46            android:exported="true" >
+46-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:36:13-36
+47            <intent-filter>
+47-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:37:13-41:29
+48                <action android:name="android.intent.action.MAIN" />
+48-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:38:17-69
+48-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:38:25-66
+49
+50                <category android:name="android.intent.category.LAUNCHER" />
+50-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:40:17-77
+50-->E:\STUDY\CU\Winter2022Course\FinalProject\EscapeFromCatPaws\app\src\main\AndroidManifest.xml:40:27-74
+51            </intent-filter>
+52        </activity>
+53
+54        <provider
+54-->[androidx.emoji2:emoji2:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\8c082c95bd529051ea549ace80b5e003\transformed\emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+55            android:name="androidx.startup.InitializationProvider"
+55-->[androidx.emoji2:emoji2:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\8c082c95bd529051ea549ace80b5e003\transformed\emoji2-1.0.0\AndroidManifest.xml:27:13-67
+56            android:authorities="com.example.csi5175final.androidx-startup"
+56-->[androidx.emoji2:emoji2:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\8c082c95bd529051ea549ace80b5e003\transformed\emoji2-1.0.0\AndroidManifest.xml:28:13-68
+57            android:exported="false" >
+57-->[androidx.emoji2:emoji2:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\8c082c95bd529051ea549ace80b5e003\transformed\emoji2-1.0.0\AndroidManifest.xml:29:13-37
+58            <meta-data
+58-->[androidx.emoji2:emoji2:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\8c082c95bd529051ea549ace80b5e003\transformed\emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+59                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+59-->[androidx.emoji2:emoji2:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\8c082c95bd529051ea549ace80b5e003\transformed\emoji2-1.0.0\AndroidManifest.xml:32:17-75
+60                android:value="androidx.startup" />
+60-->[androidx.emoji2:emoji2:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\8c082c95bd529051ea549ace80b5e003\transformed\emoji2-1.0.0\AndroidManifest.xml:33:17-49
+61            <meta-data
+61-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\1417e026bf9408eea127bab3316820d3\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+62                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+62-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\1417e026bf9408eea127bab3316820d3\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+63                android:value="androidx.startup" />
+63-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\1417e026bf9408eea127bab3316820d3\transformed\lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+64        </provider>
+65
+66        <uses-library
+66-->[androidx.window:window:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\ed87a45bb076383e6b3450ed347397ef\transformed\window-1.0.0\AndroidManifest.xml:25:9-27:40
+67            android:name="androidx.window.extensions"
+67-->[androidx.window:window:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\ed87a45bb076383e6b3450ed347397ef\transformed\window-1.0.0\AndroidManifest.xml:26:13-54
+68            android:required="false" />
+68-->[androidx.window:window:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\ed87a45bb076383e6b3450ed347397ef\transformed\window-1.0.0\AndroidManifest.xml:27:13-37
+69        <uses-library
+69-->[androidx.window:window:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\ed87a45bb076383e6b3450ed347397ef\transformed\window-1.0.0\AndroidManifest.xml:28:9-30:40
+70            android:name="androidx.window.sidecar"
+70-->[androidx.window:window:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\ed87a45bb076383e6b3450ed347397ef\transformed\window-1.0.0\AndroidManifest.xml:29:13-51
+71            android:required="false" />
+71-->[androidx.window:window:1.0.0] C:\Users\OriharaN40\.gradle\caches\transforms-3\ed87a45bb076383e6b3450ed347397ef\transformed\window-1.0.0\AndroidManifest.xml:30:13-37
+72    </application>
+73
+74</manifest>
