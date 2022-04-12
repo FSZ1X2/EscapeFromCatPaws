@@ -16,7 +16,21 @@
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748" />
+        app:layout_constraintVertical_bias="0.7" />
+
+    <Button
+        android:id="@+id/redo"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:enabled="false"
+        android:text="@string/regenerate"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upload_button"
+        app:layout_constraintVertical_bias="0.06" />
 
     <Button
         android:id="@+id/submit_button"
@@ -26,9 +40,9 @@
         android:text="@string/submit"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upload_button"
+        app:layout_constraintTop_toBottomOf="@+id/redo"
         app:layout_constraintVertical_bias="0.1" />
 
     <Button
@@ -38,57 +52,61 @@
         android:text="@string/leave_edit_page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submit_button"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.18" />
 
     <ImageView
         android:id="@+id/image_preview1"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187"
+        app:layout_constraintVertical_bias="0.087"
         app:srcCompat="@drawable/nekotype1" />
 
     <ImageView
         android:id="@+id/image_preview2"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.881"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.187"
+        app:layout_constraintVertical_bias="0.087"
         app:srcCompat="@drawable/nekotype2" />
 
     <ImageView
         android:id="@+id/image_preview3"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.114"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
+        app:layout_constraintVertical_bias="0.407"
         app:srcCompat="@drawable/nekotype3" />
 
     <ImageView
         android:id="@+id/image_preview4"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.881"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499"
+        app:layout_constraintVertical_bias="0.407"
         app:srcCompat="@drawable/nekotype4" />
 
     <TextView
@@ -102,19 +120,8 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.65" />
+        app:layout_constraintVertical_bias="0.581" />
 
-    <Button
-        android:id="@+id/redo"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:text="@string/regenerate"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.048" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

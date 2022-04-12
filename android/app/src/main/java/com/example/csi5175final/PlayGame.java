@@ -43,6 +43,8 @@ import java.util.concurrent.Executors;
 
 public class PlayGame extends AppCompatActivity {
 
+    private int ballColor = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //hide title bar
@@ -57,7 +59,11 @@ public class PlayGame extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Random rnd = new Random();
-                int color = Color.argb(50, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
+                int colorR = rnd.nextInt(256);
+                int colorG = rnd.nextInt(256);
+                int colorB = rnd.nextInt(256);
+                ballColor = Color.argb(255, colorR, colorG, colorB);
+                int color = Color.argb(50, colorR, colorG, colorB);
                 yarn.setColorFilter(color);
             }
         });
@@ -74,7 +80,7 @@ public class PlayGame extends AppCompatActivity {
                 game_start.setVisibility(View.INVISIBLE);
                 //add ball to game and start
                 ConstraintLayout container  = (ConstraintLayout) findViewById(R.id.game_scene);
-                BallView ballView = new BallView(PlayGame.this);
+                BallView ballView = new BallView(PlayGame.this, ballColor);
                 container.addView(ballView);
             }
         });

@@ -18,6 +18,11 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -41,6 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -57,46 +63,101 @@ import java.util.concurrent.Executors;
 
 public class EditImage extends AppCompatActivity {
 
-    private Bitmap generateType1(int color1, int color2, int color3){
+    //color value from the image
+    private int color1 = R.color.black;
+    private int color2 = R.color.light_blue_400;
+    private int color3 = R.color.white;
+    //check which image is selected
+    private int selected = 0;
+
+    private void generateType1(int color1, int color2, int color3){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype1);
-        //TODO: add color funtions for type1
-        return bmp;
+        //add color changes for type1 paws
+        int[] colorIndex= {color1, color2, color3};
+        Bitmap newPaws = Bitmap.createBitmap(bmp.getWidth(),bmp.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newPaws);
+        Paint paint = new Paint();
+        int colorID = new Random().nextInt(3);
+        //add color
+        Paint colorBrush = new Paint();
+        colorBrush.setColor(colorIndex[colorID]);
+        int c1X = bmp.getWidth()/2;
+        int c1Y = 0;
+        int c1R = bmp.getHeight()/2;
+        canvas.drawCircle(c1X, c1Y, c1R, colorBrush);
+        colorBrush.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
+        //add source type of cat paws
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        ImageView paw1 = findViewById(R.id.image_preview1);
+        paw1.setVisibility(View.VISIBLE);
+        paw1.setImageBitmap(bmp);
     }
 
-    private Bitmap generateType2(int color1, int color2, int color3){
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype2);
-        //TODO: add color funtions for type2
-        return bmp;
+    private void generateType2(int color1, int color2, int color3){
+        Drawable paw = getDrawable(R.drawable.nekotype2);
+        //add color changes for type2 paws
+        int[] colorIndex= {color1, color2, color3};
+        int colorID = new Random().nextInt(3);
+        paw.setColorFilter(colorIndex[colorID], PorterDuff.Mode.SRC_ATOP);
+        ImageView paw2 = findViewById(R.id.image_preview2);
+        paw2.setImageDrawable(paw);
+        paw2.setVisibility(View.VISIBLE);
     }
 
-    private Bitmap generateType3(int color1, int color2, int color3){
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype3);
-        //TODO: add color funtions for type3
-        return bmp;
+    private void generateType3(int color1, int color2, int color3){
+        Drawable paw = getDrawable(R.drawable.nekotype3);
+        //add color changes for type3 paws
+        int[] colorIndex= {color1, color2, color3};
+        int colorID = new Random().nextInt(3);
+        paw.setColorFilter(colorIndex[colorID], PorterDuff.Mode.SRC_ATOP);
+        ImageView paw3 = findViewById(R.id.image_preview3);
+        paw3.setImageDrawable(paw);
+        paw3.setVisibility(View.VISIBLE);
     }
 
-    private Bitmap generateType4(int color1, int color2, int color3){
+    private void generateType4(int color1, int color2, int color3){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype4);
-        //TODO: add color funtions for type4
-        return bmp;
+        //add color changes for type4 paws
+        Bitmap newPaws = Bitmap.createBitmap(bmp.getWidth(),bmp.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(newPaws);
+        Paint paint = new Paint();
+        //add first color
+        canvas.drawColor(color1);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        //add second color
+        Paint colorBrush = new Paint();
+        colorBrush.setColor(color2);
+        int c2X = new Random().nextInt(bmp.getWidth());
+        int c2Y = new Random().nextInt(bmp.getHeight());
+        int c2R = new Random().nextInt(bmp.getWidth()/2);
+        canvas.drawCircle(c2X, c2Y, c2R, colorBrush);
+        colorBrush.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        //add third color
+        colorBrush.setColor(color3);
+        int c3X = new Random().nextInt(bmp.getWidth());
+        int c3Y = new Random().nextInt(bmp.getHeight());
+        int c3R = new Random().nextInt(bmp.getWidth()/2);
+        canvas.drawCircle(c3X, c3Y, c3R, colorBrush);
+        colorBrush.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        //add source type of cat paws
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        ImageView paw4 = findViewById(R.id.image_preview4);
+        paw4.setVisibility(View.VISIBLE);
+        paw4.setImageBitmap(bmp);
     }
 
     private void generateCatpaws(int color1, int color2, int color3){
-        //get four base types of paws
-        Bitmap bmp_1 = generateType1(color1,color2,color3);
-        Bitmap bmp_2 = generateType2(color1,color2,color3);
-        Bitmap bmp_3 = generateType3(color1,color2,color3);
-        Bitmap bmp_4 = generateType4(color1,color2,color3);
-        //TODO:generate new paws based on color
-        //show all cat paws
-        ImageView paw1 = findViewById(R.id.image_preview1);
-        ImageView paw2 = findViewById(R.id.image_preview2);
-        ImageView paw3 = findViewById(R.id.image_preview3);
-        ImageView paw4 = findViewById(R.id.image_preview4);
-        paw1.setImageBitmap(bmp_1);
-        paw2.setImageBitmap(bmp_2);
-        paw3.setImageBitmap(bmp_3);
-        paw4.setImageBitmap(bmp_4);
+        //generate new paws based on color
+        generateType1(color1,color2,color3);
+        generateType2(color1,color2,color3);
+        generateType3(color1,color2,color3);
+        generateType4(color1,color2,color3);
     }
 
     ActivityResultLauncher<Intent> imagePickerActivityResult = registerForActivityResult(
@@ -112,13 +173,9 @@ public class EditImage extends AppCompatActivity {
                         Random random = new Random();
                         Bitmap bitmap = null;
                         ContentResolver contentResolver = getContentResolver();
-                        @SuppressLint("HardwareIds") String android_id = Settings.Secure.getString(contentResolver,
-                                Settings.Secure.ANDROID_ID);
 
                         //TODO: find way to get random color from image
-                        int color1 = 0;
-                        int color2 = 0;
-                        int color3 = 0;
+
                         try {
                             if(Build.VERSION.SDK_INT < 28) {
                                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
@@ -126,23 +183,21 @@ public class EditImage extends AppCompatActivity {
                                 ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, imageUri);
                                 bitmap = ImageDecoder.decodeBitmap(source);
                             }
-                            Palette.Builder builder = Palette.from(bitmap);
-                            builder.maximumColorCount(3);
-                            Log.w("myApp", builder.generate().getDarkMutedSwatch().toString());
-                            postImage(android_id, imageUri.toString());
+//                            Palette palette = Palette.generate(bitmap);
+//                            color1 = palette.getLightVibrantSwatch().getRgb();
+//                            color2 = palette.getVibrantSwatch().getRgb();
+//                            color3 = palette.getDarkVibrantSwatch().getRgb();
 //                            List<Palette.Swatch> colors = builder.generate().getSwatches();
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        ImageView paw1 = findViewById(R.id.image_preview1);
-                        paw1.setImageBitmap(bitmap); // testing
                         //show up redo button
                         Button redo = findViewById(R.id.redo);
-                        redo.setVisibility(View.VISIBLE);
+                        redo.setEnabled(true);
                         //change instruction text
                         TextView intro = findViewById(R.id.intro);
                         intro.setText(R.string.edit_intro2);
-                        generateCatpaws(0,0,0);
+                        generateCatpaws(color1,color2,color3);
                     }
                 }
             }
@@ -217,6 +272,8 @@ public class EditImage extends AppCompatActivity {
                 paw4.setAlpha(0.3f);
                 //enable submit
                 submit.setEnabled(true);
+                //change select image
+                selected = 1;
             }
         });
         paw2.setOnClickListener(new View.OnClickListener()
@@ -230,6 +287,8 @@ public class EditImage extends AppCompatActivity {
                 paw4.setAlpha(0.3f);
                 //enable submit
                 submit.setEnabled(true);
+                //change select image
+                selected = 2;
             }
         });
         paw3.setOnClickListener(new View.OnClickListener()
@@ -243,6 +302,8 @@ public class EditImage extends AppCompatActivity {
                 paw4.setAlpha(0.3f);
                 //enable submit
                 submit.setEnabled(true);
+                //change select image
+                selected = 3;
             }
         });
         paw4.setOnClickListener(new View.OnClickListener()
@@ -256,8 +317,17 @@ public class EditImage extends AppCompatActivity {
                 paw4.setAlpha(1.0f);
                 //enable submit
                 submit.setEnabled(true);
+                //change select image
+                selected = 4;
             }
         });
+    }
+
+    private Uri getImageUri(ContentResolver inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext, inImage, "paws", null);
+        return Uri.parse(path);
     }
 
     @Override
@@ -265,9 +335,46 @@ public class EditImage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_image);
 
+        //handle re-generate paws
+        Button redo = findViewById(R.id.redo);
+        redo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //re-generate cat paws
+                generateCatpaws(color1,color2,color3);
+
+            }
+        });
+
         //upload custom image
         Button upload = findViewById(R.id.upload_button);
         upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //get user id
+                ContentResolver contentResolver = getContentResolver();
+                @SuppressLint("HardwareIds") String android_id = Settings.Secure.getString(contentResolver,
+                        Settings.Secure.ANDROID_ID);
+                //get selected image uri
+                //allow user to select one cat paw
+                ImageView paw1 = findViewById(R.id.image_preview1);
+                ImageView paw2 = findViewById(R.id.image_preview2);
+                ImageView paw3 = findViewById(R.id.image_preview3);
+                ImageView paw4 = findViewById(R.id.image_preview4);
+                Bitmap bmp = null;
+                if(selected == 1) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
+                if(selected == 2) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
+                if(selected == 3) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
+                if(selected == 4) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
+                Uri submitImage = getImageUri(contentResolver, bmp);
+                //post to server
+                postImage(android_id, submitImage.toString());
+            }
+        });
+
+        //submit user selected cat paw to server
+        Button submit = findViewById(R.id.upload_button);
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //open image upload popup window

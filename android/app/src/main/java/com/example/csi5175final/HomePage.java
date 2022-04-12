@@ -135,7 +135,7 @@ public class HomePage extends AppCompatActivity {
         referButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FSZ1X2/EscapeFromCatPaws")));
             }
         });
     }
