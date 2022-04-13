@@ -70,6 +70,13 @@ public class EditImage extends AppCompatActivity {
     //check which image is selected
     private int selected = 0;
 
+    /**
+     * function for generating the Type1 cat paw based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
     private void generateType1(int color1, int color2, int color3){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype1);
         //add color changes for type1 paws
@@ -95,6 +102,13 @@ public class EditImage extends AppCompatActivity {
         paw1.setImageBitmap(bmp);
     }
 
+    /**
+     * function for generating the Type2 cat paw based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
     private void generateType2(int color1, int color2, int color3){
         Drawable paw = getDrawable(R.drawable.nekotype2);
         //add color changes for type2 paws
@@ -106,6 +120,13 @@ public class EditImage extends AppCompatActivity {
         paw2.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * function for generating the Type3 cat paw based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
     private void generateType3(int color1, int color2, int color3){
         Drawable paw = getDrawable(R.drawable.nekotype3);
         //add color changes for type3 paws
@@ -117,6 +138,13 @@ public class EditImage extends AppCompatActivity {
         paw3.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * function for generating the Type4 cat paw based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
     private void generateType4(int color1, int color2, int color3){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype4);
         //add color changes for type4 paws
@@ -152,6 +180,13 @@ public class EditImage extends AppCompatActivity {
         paw4.setImageBitmap(bmp);
     }
 
+    /**
+     * function for generating cat paws based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
     private void generateCatpaws(int color1, int color2, int color3){
         //generate new paws based on color
         generateType1(color1,color2,color3);
@@ -160,49 +195,20 @@ public class EditImage extends AppCompatActivity {
         generateType4(color1,color2,color3);
     }
 
-    ActivityResultLauncher<Intent> imagePickerActivityResult = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
+    /**
+     * function for get three colors from user uploaded image.
+     *
+     * @param bmp the image user selected and uploaded to the app.
+     */
+    private void extraColor(Bitmap bmp){
+        //TODO: extract three colors from user uploaded image and save them to the color values
+    }
 
-                    if (result != null) {
-                        //get user upload image
-                        Uri imageUri = result.getData().getData();
-
-                        //randomly generate three cat paws from this image
-                        Random random = new Random();
-                        Bitmap bitmap = null;
-                        ContentResolver contentResolver = getContentResolver();
-
-                        //TODO: find way to get random color from image
-
-                        try {
-                            if(Build.VERSION.SDK_INT < 28) {
-                                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
-                            } else {
-                                ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, imageUri);
-                                bitmap = ImageDecoder.decodeBitmap(source);
-                            }
-//                            Palette palette = Palette.generate(bitmap);
-//                            color1 = palette.getLightVibrantSwatch().getRgb();
-//                            color2 = palette.getVibrantSwatch().getRgb();
-//                            color3 = palette.getDarkVibrantSwatch().getRgb();
-//                            List<Palette.Swatch> colors = builder.generate().getSwatches();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        //show up redo button
-                        Button redo = findViewById(R.id.redo);
-                        redo.setEnabled(true);
-                        //change instruction text
-                        TextView intro = findViewById(R.id.intro);
-                        intro.setText(R.string.edit_intro2);
-                        generateCatpaws(color1,color2,color3);
-                    }
-                }
-            }
-    );
-
+    /**
+     * function for opening a popup-window and let user select their action.
+     *
+     * @param view the current view of the editImage activity.
+     */
     private void selectImage(View view){
         //initialize a new layout inflater instance for uploading
         LayoutInflater resultPage = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -247,6 +253,11 @@ public class EditImage extends AppCompatActivity {
         });
     }
 
+    /**
+     * function for determining which cat paw user selected currently
+     *
+     * @param view the current view of the editImage activity.
+     */
     private void selectPaw(View view){
         //get submit button from view
         Button submit = findViewById(R.id.submit_button);
@@ -323,12 +334,56 @@ public class EditImage extends AppCompatActivity {
         });
     }
 
+    /**
+     * function for getting the image uri from the bitmap of user selected cat paw.
+     *
+     * @param inContext the current content resolver of the editImage activity.
+     * @param inImage the current cat paw image user selected.
+     */
     private Uri getImageUri(ContentResolver inContext, Bitmap inImage) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.PNG, 100, bytes);
+        //TODO: need to find a way to initial uniform title for images
         String path = MediaStore.Images.Media.insertImage(inContext, inImage, "paws", null);
         return Uri.parse(path);
     }
+
+    ActivityResultLauncher<Intent> imagePickerActivityResult = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+
+                    if (result != null) {
+                        //get user upload image
+                        Uri imageUri = result.getData().getData();
+
+                        //randomly generate three cat paws from this image
+                        Random random = new Random();
+                        Bitmap bitmap = null;
+                        ContentResolver contentResolver = getContentResolver();
+
+                        try {
+                            if(Build.VERSION.SDK_INT < 28) {
+                                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
+                            } else {
+                                ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, imageUri);
+                                bitmap = ImageDecoder.decodeBitmap(source);
+                            }
+                            extraColor(bitmap);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        //show up redo button
+                        Button redo = findViewById(R.id.redo);
+                        redo.setEnabled(true);
+                        //change instruction text
+                        TextView intro = findViewById(R.id.intro);
+                        intro.setText(R.string.edit_intro2);
+                        generateCatpaws(color1,color2,color3);
+                    }
+                }
+            }
+    );
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -351,6 +406,18 @@ public class EditImage extends AppCompatActivity {
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //open image upload popup window
+                selectImage(view);
+                //enable cat paw selections
+                selectPaw(view);
+            }
+        });
+
+        //submit user selected cat paw to server
+        Button submit = findViewById(R.id.submit_button);
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 //get user id
                 ContentResolver contentResolver = getContentResolver();
                 @SuppressLint("HardwareIds") String android_id = Settings.Secure.getString(contentResolver,
@@ -369,18 +436,6 @@ public class EditImage extends AppCompatActivity {
                 Uri submitImage = getImageUri(contentResolver, bmp);
                 //post to server
                 postImage(android_id, submitImage.toString());
-            }
-        });
-
-        //submit user selected cat paw to server
-        Button submit = findViewById(R.id.upload_button);
-        submit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //open image upload popup window
-                selectImage(view);
-                //enable cat paw selections
-                selectPaw(view);
             }
         });
 
