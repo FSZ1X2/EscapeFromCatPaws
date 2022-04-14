@@ -43,6 +43,7 @@ import java.util.concurrent.Executors;
 
 public class PlayGame extends AppCompatActivity {
 
+    //customize ball color based on user selection
     private int ballColor = 0;
 
     @Override
