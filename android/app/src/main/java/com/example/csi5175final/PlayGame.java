@@ -10,10 +10,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.provider.MediaStore;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -79,10 +82,12 @@ public class PlayGame extends AppCompatActivity {
                 intro_text.setVisibility(View.INVISIBLE);
                 yarn.setVisibility(View.INVISIBLE);
                 game_start.setVisibility(View.INVISIBLE);
+                //start game
+                startActivity(new Intent(PlayGame.this, GameScene.class));
                 //add ball to game and start
-                ConstraintLayout container  = (ConstraintLayout) findViewById(R.id.game_scene);
-                BallView ballView = new BallView(PlayGame.this, ballColor);
-                container.addView(ballView);
+//                ConstraintLayout container  = (ConstraintLayout) findViewById(R.id.game_scene);
+//                BallView ballView = new BallView(PlayGame.this, ballColor);
+//                container.addView(ballView);
             }
         });
     }
