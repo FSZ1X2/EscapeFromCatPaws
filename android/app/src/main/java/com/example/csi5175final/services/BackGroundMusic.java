@@ -18,6 +18,7 @@ public class BackGroundMusic extends Service {
 
     private MediaPlayer player;
     private boolean ownUri = false;
+    private boolean playing = false;
 
     @Nullable
     @Override
@@ -33,6 +34,7 @@ public class BackGroundMusic extends Service {
 
     @Override
     public void onCreate() {
+        player = MediaPlayer.create(this, R.raw.background);
         super.onCreate();
     }
 
@@ -42,8 +44,10 @@ public class BackGroundMusic extends Service {
 
         if (com != null && com.equals("start")) {
             player.start();
+            playing = true;
         } else if(com.equals("stop")) {
             player.pause();
+            playing = false;
         }
 
         if(com != null && com.contains("update")){
@@ -63,6 +67,9 @@ public class BackGroundMusic extends Service {
             player.prepareAsync();
             player.setOnPreparedListener(preparedPlayer -> {
                 preparedPlayer.setLooping(true);
+                if(playing){
+                    preparedPlayer.start();
+                }
             });
         }
 
