@@ -5,9 +5,9 @@ GUIs:
 - MainActivity.java:
   - we use this activity for generate the GUIs of the app enterance.
   - show the app title and app theme.
+  - set up auto changing for the screen brightness.
 - HomePage.java:
   - we use this activity for generate the GUIs of the app lobby.
-  - the app will auto change the screen brightness in this scene.
   - users can choose actions they want to take in this scene.
   - users can also check the introduction as well as infromation of the app by click the about button.
 
