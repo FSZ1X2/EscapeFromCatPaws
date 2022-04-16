@@ -92,6 +92,10 @@ public class PlayGame extends AppCompatActivity {
         });
     }
 
+    /**
+     * Use this function to post score to DB. The id is android device ID which can be got by
+     * String android_id = Settings.Secure.getString(this.getContentResolver(),Settings.Secure.ANDROID_ID);
+     * */
     private void postScore(String id, int score){
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
