@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/android/app/src/main/res/layout/edit_image.xml" value="0.5265225933202358" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/android/app/src/main/res/layout/entrance.xml" value="0.5541666666666667" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/android/app/src/main/res/layout/game_over.xml" value="0.31296296296296294" />
         <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/android/app/src/main/res/layout/game_scene.xml" value="0.5456410256410257" />
-        <entry key="..\:/Users/yxiao/Documents/GitHub/EscapeFromCatPaws/android/app/src/main/res/layout/edit_image.xml" value="0.15172239108409322" />
+        <entry key="..\:/STUDY/CU/Winter2022Course/FinalProject/EscapeFromCatPaws/android/app/src/main/res/layout/home_page.xml" value="0.5222222222222223" />
       </map>
     </option>
   </component>

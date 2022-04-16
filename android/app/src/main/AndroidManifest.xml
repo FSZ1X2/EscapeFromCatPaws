@@ -21,11 +21,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CSI5175Final"
         android:usesCleartextTraffic="true">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.example.csi5175final.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity
-            android:name=".GameScene"
+            android:name=".GameOver"
             android:exported="false" />
         <activity
-            android:name=".GamePanel"
+            android:name=".GameScene"
             android:exported="false" />
         <activity
             android:name=".CheckScore"
