@@ -19,7 +19,7 @@ Main features:
       - we use this to save the global values like screen resolutions and current context.
     - PlayGame.java: 
       - we use this activity to generate the GUIs for game entrance scene.
-      - users can also also generate color for their ball randomly in this scene by click the ball image.
+      - users can also also generate color for their ball randomly in this scene by click the ball image(A context awareness feature).
       - users can start game by click the go button.
     - GameScene.java:
       - this activity is used to connect the gameplay scene and the game entrance scene. 
@@ -49,7 +49,7 @@ Main features:
       -  users can choose to save their score to database(AWS server) by click save score button.
       -  users can choose to go back to homepage by click the leave button.
 
-- Customize cat paws(obstacles):
+- Customize cat paws(obstacles) - A context awareness feature:
   1. Pick colors from user uploaded image.
   2. Generate cat paws based on those picked color with template paws.
   3. Related files:
