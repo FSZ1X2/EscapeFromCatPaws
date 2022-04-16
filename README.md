@@ -59,9 +59,18 @@ Main features:
       -   generate cat paws(four paws every generating process) based on picked color and paws templates.
       -   allow users to re-generate and select as well as save the cat paw they liked to database(one cat paw one submission).
 
-Side features:
-- Share your score of current game.
-- Score board that allow user to check their saved score and global score.
-- Bush notifications that will let users know if there is any update for the game.
-- Backgroud music.
-- Menu bar.
+Advanced features:
+- Share your score of current game:
+  -  we will generate a image including the current socre that can be shared to other app by user.
+- Score board that allow user to check their saved score and global score:
+  - we set up a AWS server for store all user scores:
+    - we used the device id(hardware ids) as the user id.
+    - the user score will be saved as {userID, score} pair.
+- Bush notifications that will let users know if there is any update for the game：
+  - daliy notification that show how many cat paws we currently have in database.
+- Backgroud music:
+  - users can toggle background music in lobbly with a fab button.
+  - users can also toggle music by using the menu bar. 
+- Menu bar:
+  - we made menu_bar.xml to initial a menu bar object as well as items in that bar for our app.
+  - we implemented this menu object and created menu bar for each scene.
