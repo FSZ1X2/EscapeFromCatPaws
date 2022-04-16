@@ -203,8 +203,12 @@ public class EditImage extends AppCompatActivity {
      *
      * @param bmp the image user selected and uploaded to the app.
      */
+    @SuppressLint("ResourceAsColor")
     private void extraColor(Bitmap bmp){
-        //TODO: extract three colors from user uploaded image and save them to the color values
+        Palette p = Palette.from(bmp).generate();
+        color1 = p.getDominantSwatch().getTitleTextColor();
+        color2 = p.getVibrantColor(R.color.light_blue_400);
+        color3 = p.getDarkMutedColor(R.color.white);
     }
 
     /**
@@ -370,7 +374,7 @@ public class EditImage extends AppCompatActivity {
                                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
                             } else {
                                 ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, imageUri);
-                                bitmap = ImageDecoder.decodeBitmap(source);
+                                bitmap = ImageDecoder.decodeBitmap(source).copy(Bitmap.Config.RGBA_F16, true);
                             }
                             extraColor(bitmap);
                         } catch (Exception e) {
@@ -439,20 +443,19 @@ public class EditImage extends AppCompatActivity {
                 ContentResolver contentResolver = getContentResolver();
                 @SuppressLint("HardwareIds") String android_id = Settings.Secure.getString(contentResolver,
                         Settings.Secure.ANDROID_ID);
-                //get selected image uri
-                //allow user to select one cat paw
-                ImageView paw1 = findViewById(R.id.image_preview1);
-                ImageView paw2 = findViewById(R.id.image_preview2);
-                ImageView paw3 = findViewById(R.id.image_preview3);
-                ImageView paw4 = findViewById(R.id.image_preview4);
-                Bitmap bmp = null;
-                if(selected == 1) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
-                if(selected == 2) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
-                if(selected == 3) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
-                if(selected == 4) bmp = ((BitmapDrawable)paw1.getDrawable()).getBitmap();
-                Uri submitImage = getImageUri(contentResolver, bmp);
+
+                String result = "" + color1 + "," + color2 + "," + color3;
+                if(selected == 1) result = result + ",1";
+                if(selected == 2) result = result + ",2";
+                if(selected == 3) result = result + ",3";
+                if(selected == 4) result = result + ",4";
                 //post to server
-                postImage(android_id, submitImage.toString());
+                try{
+                    postImage(android_id, result);
+
+                } catch (Exception e){
+                    Toast.makeText(EditImage.this, "failed to save paw!", Toast.LENGTH_LONG);
+                }
             }
         });
 
@@ -502,7 +505,7 @@ public class EditImage extends AppCompatActivity {
         }
     }
 
-    private void postImage(String id, String url){
+    private void postImage(String id, String color){
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
 
@@ -510,8 +513,8 @@ public class EditImage extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    String url = "HTTP://18.191.10.52:3000/score";
-                    String urlParameters  = "id="+id+"&url=" + url;
+                    String url = "HTTP://18.191.10.52:3000/images";
+                    String urlParameters  = "id="+id+"&uri=" + color;
                     InputStream stream = null;
                     byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
                     int postDataLength = postData.length;
@@ -543,13 +546,18 @@ public class EditImage extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(EditImage.this, R.string.post_score, Toast.LENGTH_LONG).show();
+                        Toast.makeText(EditImage.this, "paw saved!", Toast.LENGTH_LONG);
                     }
                 });
             }
         });
     }
 
+    /**
+     * Function to get stored color int value from DB. This function can be moved to the class where
+     * we need to read the stored color value. Then call the same generateType method.
+     * The value stored in DB is "[color1],[color2],[color3],[paw_type]". This will always get the latest stored color value.
+     * */
     private void getImage(String id){
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Handler handler = new Handler(Looper.getMainLooper());
@@ -583,17 +591,17 @@ public class EditImage extends AppCompatActivity {
                     @Override
                     public void run() {
 
-                        String formatted = finalResults.replace("[", "").replace("]", "");
-                        Uri uri = Uri.parse(formatted);
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(EditImage.this.getContentResolver(), uri);
-                            //TODO:update image with the bitmap.
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Toast.makeText(EditImage.this,R.string.no_img_found,Toast.LENGTH_LONG);
+                        String[] formatted = finalResults.split(",");
+                        int color1 = Integer.parseInt(formatted[0]);
+                        int color2 = Integer.parseInt(formatted[1]);
+                        int color3 = Integer.parseInt(formatted[2]);
+
+                        switch (formatted[3]){
+                            case "1": EditImage.this.generateType1(color1,color2, color3);
+                            case "2": EditImage.this.generateType2(color1,color2, color3);
+                            case "3": EditImage.this.generateType3(color1,color2, color3);
+                            case "4": EditImage.this.generateType4(color1,color2, color3);
                         }
-
-
                     }
                 });
             }
