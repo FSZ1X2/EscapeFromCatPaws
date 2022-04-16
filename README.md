@@ -7,6 +7,7 @@ GUIs:
   - show the app title and app theme.
 - HomePage.java:
   - we use this activity for generate the GUIs of the app lobby.
+  - the app will auto change the screen brightness in this scene.
   - users can choose actions they want to take in this scene.
   - users can also check the introduction as well as infromation of the app by click the about button.
 
@@ -60,6 +61,9 @@ Main features:
       -   allow users to re-generate and select as well as save the cat paw they liked to database(one cat paw one submission).
 
 Advanced features:
+- Light sensor data:
+  - the app can track the brightness of the enviorment by using light sensor control. 
+  - the app will auto switch between day time mode and night mode theme based on current brightness.
 - Share your score of current game:
   -  we will generate a image including the current socre that can be shared to other app by user.
 - Score board that allow user to check their saved score and global score:
