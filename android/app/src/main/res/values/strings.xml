@@ -22,6 +22,11 @@
     <!-- Game strings -->
     <string name="instruction">Avoid cat paws!\n Click yarn ball to get your random one\n and keep going!</string>
     <string name="game_start">GO!</string>
+    <string name="game_is_over">Game Over!</string>
+    <string name="game_restart">restart</string>
+    <string name="game_score_save">save score</string>
+    <string name="game_leave">leave</string>
+    <string name="game_share">Share</string>
 
     <!-- Editing strings -->
     <string name="upload">upload</string>
