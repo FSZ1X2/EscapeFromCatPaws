@@ -63,11 +63,6 @@ public class Obstacle implements GameObject {
      * @param playerGap use this param to make sure player will have a chance to avoid cat paws.
      */
     public Obstacle(int rectHeight, int startX, int startY, int playerGap) {
-//        if(LoR==0)
-            rectangle = new Rect(startX, startY, startX + playerGap, startY + rectHeight);
-//        else
-//            rectangle = new Rect(startX + playerGap, startY, Constants.SCREEN_WIDTH, startY + rectHeight);
-        //create rectangle collision for the cat paw
         rectangle = new Rect(startX, startY, startX + playerGap, startY + rectHeight);
 
         BitmapFactory bf = new BitmapFactory();
