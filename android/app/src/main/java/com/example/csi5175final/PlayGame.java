@@ -1,5 +1,7 @@
 package com.example.csi5175final;
 
+import static com.example.csi5175final.MainActivity.backgroundMusicOn;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.example.csi5175final.services.BackGroundMusic;
 
 import java.util.Random;
 
@@ -70,13 +75,17 @@ public class PlayGame extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.toggleMusic:
-                Intent intent_file = new Intent(Intent.ACTION_GET_CONTENT);
-                intent_file.setType("audio/*");
-                intent_file.addCategory(Intent.CATEGORY_OPENABLE);
-
-                Intent finalIntent = Intent.createChooser(intent_file, "Select background music");
-
-                startActivityForResult(finalIntent, 1);
+                Intent i = new Intent(this, BackGroundMusic.class);
+                if(backgroundMusicOn){
+                    i.putExtra("command", "stop");
+                    this.startService(i);
+                    backgroundMusicOn = false;
+                } else{
+                    i.putExtra("command", "start");
+                    this.startService(i);
+                    backgroundMusicOn = true;
+                    Toast.makeText(this, R.string.music_start, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.backHome: //back to lobby
                 startActivity(new Intent(PlayGame.this, HomePage.class));

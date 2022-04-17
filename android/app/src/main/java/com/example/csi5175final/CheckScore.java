@@ -99,8 +99,8 @@ public class CheckScore extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
         switch (item.getItemId()) {
-            case R.id.toggleMusic: //TODO: add toggle music feature
-                    Intent i = new Intent(this, BackGroundMusic.class);
+            case R.id.toggleMusic:
+                Intent i = new Intent(this, BackGroundMusic.class);
                 if(backgroundMusicOn){
                     i.putExtra("command", "stop");
                     this.startService(i);
