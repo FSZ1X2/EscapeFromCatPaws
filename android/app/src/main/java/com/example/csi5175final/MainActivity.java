@@ -34,10 +34,12 @@ public class MainActivity extends AppCompatActivity {
     private int id = 1111;
     private String channelId = "channelId1";
     private NotificationManager mNotificationManager;
+    public static AppCompatActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.entrance);
 
         mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

@@ -23,10 +23,12 @@ public class PlayGame extends AppCompatActivity {
 
     //customize ball color based on user selection
     private int ballColor = Color.WHITE;
+    public static AppCompatActivity instance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        instance = this;
         setContentView(R.layout.play_game);
 
         ImageView yarn = findViewById(R.id.yarn_image);
