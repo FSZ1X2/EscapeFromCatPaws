@@ -73,6 +73,7 @@ public class Obstacle implements GameObject {
         BitmapFactory bf = new BitmapFactory();
 
         // randomly pick one default color from local.
+        paw = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.nekotmp1);
         switch (new Random().nextInt(5)){
             case 0:paw = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.nekotmp1); break;
             case 1:paw = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.nekotmp2); break;

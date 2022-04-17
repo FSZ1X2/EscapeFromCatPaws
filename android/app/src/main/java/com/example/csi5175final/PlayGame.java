@@ -152,13 +152,16 @@ public class PlayGame extends AppCompatActivity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-                String finalResults = results.replace("[\"", "").replace("\"]", "");
+                String finalResults = "";
+                if( results!=null && results.length() > 3){
+                    finalResults = results.replace("[\"", "").replace("\"]", "");
+                }
+                String finalResults1 = finalResults;
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        if( finalResults!=null && finalResults.length() > 0){
-                            String[] formatted = finalResults.split(",");
+                        if( finalResults1 !=null && finalResults1.length() > 0){
+                            String[] formatted = finalResults1.split(",");
                             int color1 = Integer.parseInt(formatted[0]);
                             int color2 = Integer.parseInt(formatted[1]);
                             int color3 = Integer.parseInt(formatted[2]);
