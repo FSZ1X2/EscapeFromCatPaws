@@ -1,5 +1,7 @@
 package com.example.csi5175final;
 
+import static com.example.csi5175final.MainActivity.backgroundMusicOn;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,7 +35,6 @@ public class HomePage extends AppCompatActivity {
 
     private static final int PERMISSION_REQUEST_ACTIVITY_RECOGNITION = 45;
     private HomePageBinding binding;
-    private boolean backgroundMusicOn = false;
     public static HomePage Instance;
 
     @Override
@@ -154,13 +155,17 @@ public class HomePage extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.toggleMusic: //TODO: add toggle music feature
-                Intent intent_file = new Intent(Intent.ACTION_GET_CONTENT);
-                intent_file.setType("audio/*");
-                intent_file.addCategory(Intent.CATEGORY_OPENABLE);
-
-                Intent finalIntent = Intent.createChooser(intent_file, "Select background music");
-
-                startActivityForResult(finalIntent, 1);
+                Intent i = new Intent(this, BackGroundMusic.class);
+                if(backgroundMusicOn){
+                    i.putExtra("command", "stop");
+                    this.startService(i);
+                    backgroundMusicOn = false;
+                } else{
+                    i.putExtra("command", "start");
+                    this.startService(i);
+                    backgroundMusicOn = true;
+                    Toast.makeText(this, R.string.music_start, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.backHome: //back to lobby
                 startActivity(new Intent(HomePage.this, HomePage.class));

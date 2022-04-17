@@ -1,7 +1,10 @@
 package com.example.csi5175final;
 
+import static com.example.csi5175final.MainActivity.backgroundMusicOn;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -31,7 +34,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class CheckScore extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,8 @@ public class CheckScore extends AppCompatActivity {
         });
 
         TextView topScore = findViewById(R.id.score_records);
+
+        getScore(android_id, false);
 
         Button checkYour = findViewById(R.id.player_record);
         checkYour.setOnClickListener(new View.OnClickListener() {
@@ -96,13 +100,17 @@ public class CheckScore extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.toggleMusic: //TODO: add toggle music feature
-                Intent intent_file = new Intent(Intent.ACTION_GET_CONTENT);
-                intent_file.setType("audio/*");
-                intent_file.addCategory(Intent.CATEGORY_OPENABLE);
-
-                Intent finalIntent = Intent.createChooser(intent_file, "Select background music");
-
-                startActivityForResult(finalIntent, 1);
+                    Intent i = new Intent(this, BackGroundMusic.class);
+                if(backgroundMusicOn){
+                    i.putExtra("command", "stop");
+                    this.startService(i);
+                    backgroundMusicOn = false;
+                } else{
+                    i.putExtra("command", "start");
+                    this.startService(i);
+                    backgroundMusicOn = true;
+                    Toast.makeText(this, R.string.music_start, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.backHome: //back to lobby
                 startActivity(new Intent(CheckScore.this, HomePage.class));
