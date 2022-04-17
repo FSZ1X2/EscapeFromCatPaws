@@ -36,7 +36,6 @@
     <string name="edit_intro">Please upload your custom image</string>
     <string name="edit_intro2">Please select one cat paw\n or click reload to generate cat paws again</string>
     <string name="select_gallery">Open album</string>
-    <string name="select_camera">Take picture now!</string>
     <string name="select_leave">Back</string>
     <string name="no_img_found">Your stored image is deleted, using default.</string>
 

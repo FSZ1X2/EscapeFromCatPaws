@@ -57,7 +57,7 @@ public class Obstacle implements GameObject {
     }
 
     /**
-     * function for checking if play hit the cat paw.
+     * function for checking if player hit the cat paw.
      *
      * @param player game object for player.
      */

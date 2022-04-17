@@ -5,20 +5,31 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.loader.content.CursorLoader;
@@ -35,6 +46,11 @@ public class HomePage extends AppCompatActivity {
     private HomePageBinding binding;
     private boolean backgroundMusicOn = false;
     public static HomePage Instance;
+
+    //values for change the screen lightness
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
+    private float mLux;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -84,7 +100,6 @@ public class HomePage extends AppCompatActivity {
         binding.fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: add background music toggle feature here
                 Toast.makeText(Instance, "music start", Toast.LENGTH_LONG);
                 //toggle background music
                 Intent i = new Intent(Instance, BackGroundMusic.class);
@@ -138,6 +153,105 @@ public class HomePage extends AppCompatActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/FSZ1X2/EscapeFromCatPaws")));
             }
         });
+
+        mSensorManager = (SensorManager)
+                getSystemService(Context.SENSOR_SERVICE);
+        // set up sensor to light sensor
+        mSensor = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_LIGHT);
+
+        // check if the device can auto change brightness
+        if(IsAutoBrightness(HomePage.this)){
+            // close the device auto brightness change feature and use app's one
+            stopAutoBrightness(HomePage.this);
+        }
+        // set up listener to the light sensor
+        mSensorManager.registerListener(listener, mSensor, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    // the listener for getting sensor data for brightness
+    private SensorEventListener listener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+
+            if(event.sensor.getType() == Sensor.TYPE_LIGHT){
+                //get brightness
+                mLux = event.values[0];
+                if (mLux <  20000){
+                    setBrightness(HomePage.this, 80); //low brightness
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    setBrightness(HomePage.this,255); //high brightness
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+        }
+    };
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mSensorManager != null) {
+            mSensorManager.unregisterListener(listener);
+        }
+    }
+
+    /**
+     * function for changing screen brightness
+     *
+     * @param activity the current activity
+     * @param brightness the brightness we want the screen to be set to
+     */
+    public static  void setBrightness(Activity activity, int brightness){
+        WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+        lp.screenBrightness = Float.valueOf(brightness) * (1f / 255f);
+        activity.getWindow().setAttributes(lp);
+    }
+
+    /**
+     * function for checking whether the auto brightness change feature is on or not
+     *
+     * @param context the current context of the activity
+     * @return true if the auto brightness change feature is on
+     */
+    public static  boolean IsAutoBrightness(Context context){
+        boolean IsAutoBrightness = false ;
+        try{
+            IsAutoBrightness = Settings.System.getInt(
+                    context.getContentResolver(),
+
+                    Settings.System.SCREEN_BRIGHTNESS_MODE) == Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC;
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        return  IsAutoBrightness;
+    }
+
+    /**
+     * function for stopping auto screen brightness change
+     *
+     * @param context the current context of the activity
+     */
+    public static  void stopAutoBrightness(Context context){
+        Settings.System.putInt(context.getContentResolver(),Settings.System.SCREEN_BRIGHTNESS_MODE,
+                Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
     }
 
     //setup menu bar

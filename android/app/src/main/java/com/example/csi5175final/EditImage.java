@@ -81,7 +81,8 @@ public class EditImage extends AppCompatActivity {
      * @param color3 third color extracted from user uploaded image.
      */
     private void generateType1(int color1, int color2, int color3){
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype1);
+        Drawable paw = getDrawable(R.drawable.nekotype1);
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
         //add color changes for type1 paws
         int[] colorIndex= {color1, color2, color3};
         Bitmap newPaws = Bitmap.createBitmap(bmp.getWidth(),bmp.getHeight(), Bitmap.Config.ARGB_8888);
@@ -149,7 +150,8 @@ public class EditImage extends AppCompatActivity {
      * @param color3 third color extracted from user uploaded image.
      */
     private void generateType4(int color1, int color2, int color3){
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.nekotype4);
+        Drawable paw = getDrawable(R.drawable.nekotype4);
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
         //add color changes for type4 paws
         Bitmap newPaws = Bitmap.createBitmap(bmp.getWidth(),bmp.getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(newPaws);
@@ -234,18 +236,6 @@ public class EditImage extends AppCompatActivity {
                 getPictureIntent.setType("image/*");
                 //TODO: debug - why if not select goes wrong
                 imagePickerActivityResult.launch(getPictureIntent);
-                //close popup
-                popupWindow.dismiss();
-            }
-        });
-        //get image from user camera
-        Button bt_camera = select_view.findViewById(R.id.camera);
-        bt_camera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //TODO: debug - why doesn't work
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                imagePickerActivityResult.launch(takePictureIntent);
                 //close popup
                 popupWindow.dismiss();
             }
