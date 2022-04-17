@@ -1,7 +1,7 @@
 # EscapeFromCatPaws
 this project is the final project for csi5175 course
 
-GUIs:
+**GUIs**:
 - MainActivity.java:
   - We use this activity to generate the GUIs of the app entrance.
   - Show the app title and app theme.
@@ -12,7 +12,7 @@ GUIs:
   - Users can also check the introduction as well as information on the app by clicking the about button.
   - Set up auto changing for the screen brightness.
 
-Main features:
+**Main features**:
 - A 2D game: This game will allow users to control a ball of yarn and secure it without being destroyed by cat paws. When the game starts, cat paws will randomly appear on the screen toward random directions and users need to control the ball of yarn to avoid those paws. Every time the ball hits a cat paw it will lose some yarns and when it becomes empty, game over. The game can always continue as long as the ball is ‘alive’.
   - Related files:
     - Constants.java: we use this to save the global values like screen resolutions and current context.
@@ -54,7 +54,7 @@ Main features:
       -   Generate cat paws(four paws every generating process) based on picked color and paws templates.
       -   Allow users to re-generate and select as well as save the cat paw they liked to the database(one cat paw one submission).
 
-Advanced features:
+**Advanced features**:
 - Light sensor data:
   - The app can track the brightness of the environment by using light sensor control.
   - The app will auto switch between day time mode and night mode theme based on current brightness.
@@ -72,6 +72,11 @@ Advanced features:
   - We implemented this menu object and created a menu bar for each scene.
 - Push notification:
   - We added Firebase SDK and used Firebase console to send push notifications to the device that installed our app.
+
+**Web Server:**
+- Hosted on cloud. NodeJS server:
+  - This server users https to connect with the app and all score and customized pictures are parsed by this server.
+  - This server will read/write data from DB.
 
 Resource Reference:
 - All images are made by Zixun Xiang.
