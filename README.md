@@ -73,3 +73,5 @@ Advanced features:
 - Push notification:
   - We added Firebase SDK and used Firebase console to send push notifications to the device that installed our app.
 
+Resource Reference:
+- All images are made by Zixun Xiang.
