@@ -75,8 +75,8 @@ this project is the final project for csi5175 course
 
 **Web Server:**
 - Hosted on cloud. NodeJS server:
-  - This server users https to connect with the app and all score and customized pictures are parsed by this server.
+  - This server uses https to connect with the app and all scores and customized pictures are parsed by this server.
   - This server will read/write data from DB.
 
-Resource Reference:
+**Resource Reference:**
 - All images are made by Zixun Xiang.
