@@ -1,5 +1,7 @@
 package com.example.csi5175final;
 
+import static com.example.csi5175final.MainActivity.backgroundMusicOn;
+
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -350,7 +352,7 @@ public class EditImage extends AppCompatActivity {
                 @Override
                 public void onActivityResult(ActivityResult result) {
 
-                    if (result != null) {
+                    if (result != null && result.getData() !=null) {
                         //get user upload image
                         Uri imageUri = result.getData().getData();
 
@@ -473,13 +475,17 @@ public class EditImage extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.toggleMusic: //TODO: add toggle music feature
-                Intent intent_file = new Intent(Intent.ACTION_GET_CONTENT);
-                intent_file.setType("audio/*");
-                intent_file.addCategory(Intent.CATEGORY_OPENABLE);
-
-                Intent finalIntent = Intent.createChooser(intent_file, "Select background music");
-
-                startActivityForResult(finalIntent, 1);
+                Intent i = new Intent(this, BackGroundMusic.class);
+                if(backgroundMusicOn){
+                    i.putExtra("command", "stop");
+                    this.startService(i);
+                    backgroundMusicOn = false;
+                } else{
+                    i.putExtra("command", "start");
+                    this.startService(i);
+                    backgroundMusicOn = true;
+                    Toast.makeText(this, R.string.music_start, Toast.LENGTH_LONG).show();
+                }
                 return true;
             case R.id.backHome: //back to lobby
                 startActivity(new Intent(EditImage.this, HomePage.class));
