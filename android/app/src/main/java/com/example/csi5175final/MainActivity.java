@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void appNotification(){
         NotificationCompat.Builder mBuilder1 = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.mipmap.ic_launcher)//小图标
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("App Overview")
-                .setContentText("我是内容内容");
+                .setContentText("You are playing EscapeFromCatPaws Version.1.");
 
         mNotificationManager.notify(id, mBuilder1.build());
     }

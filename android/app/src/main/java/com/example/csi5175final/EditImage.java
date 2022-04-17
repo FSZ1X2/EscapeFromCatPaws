@@ -221,35 +221,9 @@ public class EditImage extends AppCompatActivity {
      * @param view the current view of the editImage activity.
      */
     private void selectImage(View view){
-        //initialize a new layout inflater instance for uploading
-        LayoutInflater resultPage = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View select_view = resultPage.inflate(R.layout.selecting_image,null);
-        //initialize a popup window instance
-        PopupWindow popupWindow = new PopupWindow(select_view,
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        // show the popup window
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-        //get image from user album
-        Button bt_album = select_view.findViewById(R.id.gallery);
-        bt_album.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent getPictureIntent = new Intent(Intent.ACTION_PICK);
-                getPictureIntent.setType("image/*");
-                //TODO: debug - why if not select goes wrong
-                imagePickerActivityResult.launch(getPictureIntent);
-                //close popup
-                popupWindow.dismiss();
-            }
-        });
-        //back to previous page
-        Button bt_back = select_view.findViewById(R.id.go_back);
-        bt_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
+        Intent getPictureIntent = new Intent(Intent.ACTION_PICK);
+        getPictureIntent.setType("image/*");
+        imagePickerActivityResult.launch(getPictureIntent);
     }
 
     /**
