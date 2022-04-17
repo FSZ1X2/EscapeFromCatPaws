@@ -23,7 +23,7 @@ app.get("/top", function(req, res) {
     let todo = [id];
     connection.query(query, todo, (err, results, fields) => {
       if (err) {
-        return console.error(err.message);
+        console.error(err);
       }
 
       const converted = JSON.parse(JSON.stringify(results))
@@ -34,17 +34,18 @@ app.get("/top", function(req, res) {
 
       res.send(result);
     });
+    connection.release();
   })
 });
 
 app.get("/image", function(req, res) {
   var id = req.query.id;
   pool.getConnection(function(err, connection){
-    let query = "SELECT * FROM images WHERE id = ? ORDER BY ind DESC LIMIT 1";
+    let query = "SELECT * FROM images WHERE id = ? ORDER BY RAND() LIMIT 1";
     let todo = [id];
     connection.query(query, todo, (err, results, fields) => {
       if (err) {
-        return console.error(err.message);
+        console.error(err);
       }
 
       const converted = JSON.parse(JSON.stringify(results))
@@ -55,6 +56,7 @@ app.get("/image", function(req, res) {
 
       res.send(result);
     });
+    connection.release();
   })
 });
 
@@ -64,7 +66,7 @@ app.get("/topg", function(req, res) {
     let todo = [""];
     connection.query(query, todo, (err, results, fields) => {
       if (err) {
-        return console.error(err.message);
+        console.error(err);
       }
 
       const converted = JSON.parse(JSON.stringify(results))
@@ -75,6 +77,7 @@ app.get("/topg", function(req, res) {
 
       res.send(result);
     });
+    connection.release();
   })
 });
   
@@ -87,11 +90,11 @@ app.post("/score", function(req, res) {
     let todo = [id, score];
     connection.query(query, todo, (err, results, fields) => {
       if (err) {
-        return console.error(err.message);
+        console.error(err);
       }
     });
   })
-    
+  connection.release();
   res.send("inserted");
 });
 
@@ -104,14 +107,14 @@ app.post("/images", function(req, res) {
     let todo = [id, uri];
     connection.query(query, todo, (err, results, fields) => {
       if (err) {
-        return console.error(err.message);
+        console.error(err);
       }
     });
   })
-    
+  connection.release();
   res.send("inserted");
 });
   
-app.listen(3000, function(){
-  console.log("server is running on port 3000");
+app.listen(8080, function(){
+  console.log("server is running on port 8080");
 })
