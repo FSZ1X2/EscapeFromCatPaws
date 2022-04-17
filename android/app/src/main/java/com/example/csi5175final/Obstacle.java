@@ -25,9 +25,6 @@ import java.util.concurrent.Executors;
 
 public class Obstacle implements GameObject {
     private Rect rectangle;
-//    //determine which side the cat paws will appear
-//    // left:0 and right:1
-//    private int LoR = new Random().nextInt(2);
     private Bitmap paw;
     private AppCompatActivity activity;
 
@@ -73,12 +70,16 @@ public class Obstacle implements GameObject {
             rectangle = new Rect(startX, startY, startX + playerGap, startY + rectHeight);
 //        else
 //            rectangle = new Rect(startX + playerGap, startY, Constants.SCREEN_WIDTH, startY + rectHeight);
+        //create rectangle collision for the cat paw
+        rectangle = new Rect(startX, startY, startX + playerGap, startY + rectHeight);
 
         //TODO: randomly get cat paws from database
         BitmapFactory bf = new BitmapFactory();
         paw = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.nekotype1);
 
 
+        //replace code:
+        //paw = getImage();
     }
 
     /**
