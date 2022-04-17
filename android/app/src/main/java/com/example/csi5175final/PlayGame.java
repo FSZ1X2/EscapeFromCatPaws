@@ -180,14 +180,55 @@ public class PlayGame extends AppCompatActivity {
 
     private void generateBitMap(int color1, int color2, int color3, int selection, int picker, int picker2){
         Drawable paw1 = PlayGame.this.getDrawable(R.drawable.nekotype1);
-
+        Bitmap bmp2 = null;
         switch (selection){
-            case 1: paw1 = PlayGame.this.getDrawable(R.drawable.nekotype1);break;
-            case 2: paw1 = PlayGame.this.getDrawable(R.drawable.nekotype2);break;
-            case 3: paw1 = PlayGame.this.getDrawable(R.drawable.nekotype3);break;
-            case 4: paw1 = PlayGame.this.getDrawable(R.drawable.nekotype4);break;
+            case 1: bmp2 = generateType1(color1,color2,color3,selection,picker,picker2); break;
+            case 2: bmp2 = generateType2(color1,color2,color3,selection,picker,picker2); break;
+            case 3: bmp2 = generateType3(color1,color2,color3,selection,picker,picker2); break;
+            case 4: bmp2 = generateType4(color1,color2,color3,selection,picker,picker2); break;
         }
-        Bitmap bmp = ((BitmapDrawable) paw1).getBitmap();
+
+        Constants.db = bmp2;
+    }
+
+
+    private Bitmap generateType1(int color1, int color2, int color3, int selection, int picker, int picker2){
+        Drawable paw1 = getDrawable(R.drawable.nekotype1);
+        Bitmap bmp1 = ((BitmapDrawable) paw1).getBitmap();
+        android.graphics.Bitmap.Config bitmapConfig = bmp1.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        // convert resource bitmaps are to mutable one
+        bmp1 = bmp1.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp1);
+        //add color changes for type1 paws
+        int[] colorIndex= {color1, color2, color3};
+        Paint paint = new Paint();
+        //add color
+        paint.setColor(colorIndex[picker]);
+        int c1X = bmp1.getWidth()/4;
+        int c1Y = bmp1.getHeight()/2;
+        int c1R = bmp1.getWidth()/3;
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawCircle(c1X, c1Y, c1R, paint);
+        //add source type of cat paws
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
+        canvas.drawBitmap(bmp1, 0, 0, paint);
+        return bmp1;
+    }
+
+    /**
+     * function for generating the Type2 cat paw based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
+    private Bitmap generateType2(int color1, int color2, int color3, int selection, int picker, int picker2){
+        Drawable paw = getDrawable(R.drawable.nekotype2);
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
         android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
         // set default bitmap config if none
         if(bitmapConfig == null) {
@@ -196,50 +237,90 @@ public class PlayGame extends AppCompatActivity {
         // convert resource bitmaps are to mutable one
         bmp = bmp.copy(bitmapConfig, true);
         Canvas canvas = new Canvas(bmp);
-        //add color changes for type1 paws
+        //add color changes for type2 paws
         int[] colorIndex= {color1, color2, color3};
         Paint paint = new Paint();
-        //add color
+        paint.setColor(colorIndex[picker]);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
+        //add source type of cat paws
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        return bmp;
+    }
 
-        if(selection < 4){
-            int colorID = picker;
-            paint.setColor(colorIndex[colorID]);
-            int c1X = bmp.getWidth()/4;
-            int c1Y = bmp.getHeight()/2;
-            int c1R = bmp.getWidth()/3;
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-            canvas.drawCircle(c1X, c1Y, c1R, paint);
-            //add source type of cat paws
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
-            canvas.drawBitmap(bmp, 0, 0, paint);
-        } else{
-            //add first color
-            paint.setColor(color1);
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-            canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
-            //add second color
-            paint.setColor(color2);
-            int c2X = bmp.getWidth()/2;
-            int c2Y = 3 * bmp.getHeight()/4;
-            int rand = picker;
-            int c2R = bmp.getHeight()/5 + rand;
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-            canvas.drawCircle(c2X, c2Y, c2R, paint);
-            //add third color
-            paint.setColor(color3);
-            int c3X = 4 * bmp.getWidth()/5;
-            int c3Y = bmp.getHeight()/4;
-            int rand2 = picker2;
-            int c3R = bmp.getHeight()/5 + rand2;
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-            canvas.drawCircle(c3X, c3Y, c3R, paint);
-            //add source type of cat paws
-            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-            canvas.drawBitmap(bmp, 0, 0, paint);
+    /**
+     * function for generating the Type3 cat paw based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
+    private Bitmap generateType3(int color1, int color2, int color3, int selection, int picker, int picker2){
+        Drawable paw = getDrawable(R.drawable.nekotype3);
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
+        android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
         }
+        // convert resource bitmaps are to mutable one
+        bmp = bmp.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp);
+        //add color changes for type3 paws
+        int[] colorIndex= {color1, color2, color3};
+        Paint paint = new Paint();
+        int colorID = new Random().nextInt(3);
+        paint.setColor(colorIndex[picker]);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
+        //add source type of cat paws
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        return bmp;
+    }
 
-        BitmapFactory bf = new BitmapFactory();
-
-        Constants.db = bmp;
+    /**
+     * function for generating the Type4 cat paw based on input colors.
+     *
+     * @param color1 first color extracted from user uploaded image.
+     * @param color2 second color extracted from user uploaded image.
+     * @param color3 third color extracted from user uploaded image.
+     */
+    private Bitmap generateType4(int color1, int color2, int color3, int selection, int picker, int picker2){
+        Drawable paw = getDrawable(R.drawable.nekotype4);
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
+        android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        // convert resource bitmaps are to mutable one
+        bmp = bmp.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp);
+        Paint paint = new Paint();
+        //add first color
+        paint.setColor(color1);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
+        //add second color
+        paint.setColor(color2);
+        int c2X = bmp.getWidth()/2;
+        int c2Y = 3 * bmp.getHeight()/4;
+        int c2R = bmp.getHeight()/5 + picker;
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawCircle(c2X, c2Y, c2R, paint);
+        //add third color
+        paint.setColor(color3);
+        int c3X = 4 * bmp.getWidth()/5;
+        int c3Y = bmp.getHeight()/4;
+        int rand2 = new Random().nextInt(bmp.getHeight()/2);
+        int c3R = bmp.getHeight()/5 + picker2;
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawCircle(c3X, c3Y, c3R, paint);
+        //add source type of cat paws
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        canvas.drawBitmap(bmp, 0, 0, paint);
+        return bmp;
     }
 }
