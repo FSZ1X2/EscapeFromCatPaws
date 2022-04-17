@@ -70,8 +70,6 @@ Advanced features:
   - we set up a AWS server for store all user scores:
     - we used the device id(hardware ids) as the user id.
     - the user score will be saved as {userID, score} pair.
-- Bush notifications that will let users know if there is any update for the game：
-  - daliy notification that show how many cat paws we currently have in database.
 - Backgroud music:
   - users can toggle background music in lobbly with a fab button.
   - users can also toggle music by using the menu bar. 
