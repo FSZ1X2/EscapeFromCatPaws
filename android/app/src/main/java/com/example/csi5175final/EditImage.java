@@ -85,23 +85,27 @@ public class EditImage extends AppCompatActivity {
     private void generateType1(int color1, int color2, int color3){
         Drawable paw = getDrawable(R.drawable.nekotype1);
         Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
+        android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        // convert resource bitmaps are to mutable one
+        bmp = bmp.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp);
         //add color changes for type1 paws
         int[] colorIndex= {color1, color2, color3};
-        Bitmap newPaws = Bitmap.createBitmap(bmp.getWidth(),bmp.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(newPaws);
         Paint paint = new Paint();
         int colorID = new Random().nextInt(3);
         //add color
-        Paint colorBrush = new Paint();
-        colorBrush.setColor(colorIndex[colorID]);
-        int c1X = bmp.getWidth()/2;
-        int c1Y = 0;
-        int c1R = bmp.getHeight()/2;
-        canvas.drawCircle(c1X, c1Y, c1R, colorBrush);
-        colorBrush.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.MULTIPLY));
+        paint.setColor(colorIndex[colorID]);
+        int c1X = bmp.getWidth()/4;
+        int c1Y = bmp.getHeight()/2;
+        int c1R = bmp.getWidth()/3;
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawCircle(c1X, c1Y, c1R, paint);
         //add source type of cat paws
-        canvas.drawBitmap(bmp, 0, 0, paint);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
         canvas.drawBitmap(bmp, 0, 0, paint);
         ImageView paw1 = findViewById(R.id.image_preview1);
         paw1.setVisibility(View.VISIBLE);
@@ -117,13 +121,28 @@ public class EditImage extends AppCompatActivity {
      */
     private void generateType2(int color1, int color2, int color3){
         Drawable paw = getDrawable(R.drawable.nekotype2);
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
+        android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        // convert resource bitmaps are to mutable one
+        bmp = bmp.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp);
         //add color changes for type2 paws
         int[] colorIndex= {color1, color2, color3};
+        Paint paint = new Paint();
         int colorID = new Random().nextInt(3);
-        paw.setColorFilter(colorIndex[colorID], PorterDuff.Mode.SRC_ATOP);
+        paint.setColor(colorIndex[colorID]);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
+        //add source type of cat paws
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        canvas.drawBitmap(bmp, 0, 0, paint);
         ImageView paw2 = findViewById(R.id.image_preview2);
-        paw2.setImageDrawable(paw);
         paw2.setVisibility(View.VISIBLE);
+        paw2.setImageBitmap(bmp);
     }
 
     /**
@@ -135,13 +154,28 @@ public class EditImage extends AppCompatActivity {
      */
     private void generateType3(int color1, int color2, int color3){
         Drawable paw = getDrawable(R.drawable.nekotype3);
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
+        android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        // convert resource bitmaps are to mutable one
+        bmp = bmp.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp);
         //add color changes for type3 paws
         int[] colorIndex= {color1, color2, color3};
+        Paint paint = new Paint();
         int colorID = new Random().nextInt(3);
-        paw.setColorFilter(colorIndex[colorID], PorterDuff.Mode.SRC_ATOP);
+        paint.setColor(colorIndex[colorID]);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
+        //add source type of cat paws
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+        canvas.drawBitmap(bmp, 0, 0, paint);
         ImageView paw3 = findViewById(R.id.image_preview3);
-        paw3.setImageDrawable(paw);
         paw3.setVisibility(View.VISIBLE);
+        paw3.setImageBitmap(bmp);
     }
 
     /**
@@ -154,33 +188,35 @@ public class EditImage extends AppCompatActivity {
     private void generateType4(int color1, int color2, int color3){
         Drawable paw = getDrawable(R.drawable.nekotype4);
         Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
-        //add color changes for type4 paws
-        Bitmap newPaws = Bitmap.createBitmap(bmp.getWidth(),bmp.getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(newPaws);
+        android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        // convert resource bitmaps are to mutable one
+        bmp = bmp.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp);
         Paint paint = new Paint();
         //add first color
-        canvas.drawColor(color1);
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
-        canvas.drawBitmap(bmp, 0, 0, paint);
+        paint.setColor(color1);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
         //add second color
-        Paint colorBrush = new Paint();
-        colorBrush.setColor(color2);
-        int c2X = new Random().nextInt(bmp.getWidth());
-        int c2Y = new Random().nextInt(bmp.getHeight());
-        int c2R = new Random().nextInt(bmp.getWidth()/2);
-        canvas.drawCircle(c2X, c2Y, c2R, colorBrush);
-        colorBrush.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-        canvas.drawBitmap(bmp, 0, 0, paint);
+        paint.setColor(color2);
+        int c2X = bmp.getWidth()/2;
+        int c2Y = 3 * bmp.getHeight()/4;
+        int c2R = bmp.getHeight()/5 + new Random().nextInt(bmp.getHeight()/2);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawCircle(c2X, c2Y, c2R, paint);
         //add third color
-        colorBrush.setColor(color3);
-        int c3X = new Random().nextInt(bmp.getWidth());
-        int c3Y = new Random().nextInt(bmp.getHeight());
-        int c3R = new Random().nextInt(bmp.getWidth()/2);
-        canvas.drawCircle(c3X, c3Y, c3R, colorBrush);
-        colorBrush.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
-        canvas.drawBitmap(bmp, 0, 0, paint);
+        paint.setColor(color3);
+        int c3X = 4 * bmp.getWidth()/5;
+        int c3Y = bmp.getHeight()/4;
+        int c3R = bmp.getHeight()/5 + new Random().nextInt(bmp.getHeight()/2);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawCircle(c3X, c3Y, c3R, paint);
         //add source type of cat paws
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
         canvas.drawBitmap(bmp, 0, 0, paint);
         ImageView paw4 = findViewById(R.id.image_preview4);
         paw4.setVisibility(View.VISIBLE);
@@ -210,9 +246,26 @@ public class EditImage extends AppCompatActivity {
     @SuppressLint("ResourceAsColor")
     private void extraColor(Bitmap bmp){
         Palette p = Palette.from(bmp).generate();
-        color1 = p.getDominantSwatch().getTitleTextColor();
-        color2 = p.getVibrantColor(R.color.light_blue_400);
-        color3 = p.getDarkMutedColor(R.color.white);
+        color1 = getTranslucentColor(0.5f, p.getDominantSwatch().getRgb());
+        color2 = getTranslucentColor(0.5f, p.getVibrantColor(0x000000));
+        color3 = getTranslucentColor(0.5f, p.getLightMutedColor(0x000000));
+    }
+
+    /**
+     * function for add alpha value to color
+     *
+     * @param percent the alpha value
+     * @param rgb the rgb color we have
+     * @return the argb color for editing
+     */
+    protected int getTranslucentColor(float percent, int rgb) {
+        int blue = Color.blue(rgb);
+        int green = Color.green(rgb);
+        int red = Color.red(rgb);
+        int alpha = Color.alpha(rgb);
+
+        alpha = Math.round(alpha*percent);
+        return Color.argb(alpha, red, green, blue);
     }
 
     /**
@@ -330,19 +383,20 @@ public class EditImage extends AppCompatActivity {
                         //get user upload image
                         Uri imageUri = result.getData().getData();
 
-                        //randomly generate three cat paws from this image
-                        Random random = new Random();
+                        //extract three colors from this image
                         Bitmap bitmap = null;
                         ContentResolver contentResolver = getContentResolver();
 
                         try {
                             if(Build.VERSION.SDK_INT < 28) {
                                 bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri);
+                                extraColor(bitmap);
                             } else {
                                 ImageDecoder.Source source = ImageDecoder.createSource(contentResolver, imageUri);
                                 bitmap = ImageDecoder.decodeBitmap(source).copy(Bitmap.Config.RGBA_F16, true);
+                                extraColor(bitmap);
                             }
-                            extraColor(bitmap);
+//                            extraColor(bitmap);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -352,6 +406,9 @@ public class EditImage extends AppCompatActivity {
                         //change instruction text
                         TextView intro = findViewById(R.id.intro);
                         intro.setText(R.string.edit_intro2);
+                        System.out.println("color1" + color1);
+                        System.out.println("color2" + color2);
+                        System.out.println("color3" + color3);
                         generateCatpaws(color1,color2,color3);
                     }
                 }
