@@ -216,7 +216,7 @@ public class GameOver extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    String url = "HTTP://18.191.10.52:3000/score";
+                    String url = "https://heroic-arbor-303003.uc.r.appspot.com/score";
                     String urlParameters  = "id="+id+"&num2=" + score;
                     InputStream stream = null;
                     byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );

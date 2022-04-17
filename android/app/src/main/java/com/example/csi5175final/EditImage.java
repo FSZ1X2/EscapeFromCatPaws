@@ -72,6 +72,11 @@ public class EditImage extends AppCompatActivity {
     private int color1 = R.color.black;
     private int color2 = R.color.light_blue_400;
     private int color3 = R.color.white;
+    private int picker1 = 0;
+    private int picker2 = 0;
+    private int picker3 = 0;
+    private int picker_41 = 0;
+    private int picker_42 = 0;
     //check which image is selected
     private int selected = 0;
 
@@ -97,6 +102,7 @@ public class EditImage extends AppCompatActivity {
         int[] colorIndex= {color1, color2, color3};
         Paint paint = new Paint();
         int colorID = new Random().nextInt(3);
+        picker1= colorID;
         //add color
         paint.setColor(colorIndex[colorID]);
         int c1X = bmp.getWidth()/4;
@@ -134,6 +140,7 @@ public class EditImage extends AppCompatActivity {
         int[] colorIndex= {color1, color2, color3};
         Paint paint = new Paint();
         int colorID = new Random().nextInt(3);
+        picker2= colorID;
         paint.setColor(colorIndex[colorID]);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
         canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
@@ -167,6 +174,7 @@ public class EditImage extends AppCompatActivity {
         int[] colorIndex= {color1, color2, color3};
         Paint paint = new Paint();
         int colorID = new Random().nextInt(3);
+        picker3= colorID;
         paint.setColor(colorIndex[colorID]);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
         canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
@@ -205,14 +213,18 @@ public class EditImage extends AppCompatActivity {
         paint.setColor(color2);
         int c2X = bmp.getWidth()/2;
         int c2Y = 3 * bmp.getHeight()/4;
-        int c2R = bmp.getHeight()/5 + new Random().nextInt(bmp.getHeight()/2);
+        int rand = new Random().nextInt(bmp.getHeight()/2);
+        picker_41 = rand;
+        int c2R = bmp.getHeight()/5 + rand;
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
         canvas.drawCircle(c2X, c2Y, c2R, paint);
         //add third color
         paint.setColor(color3);
         int c3X = 4 * bmp.getWidth()/5;
         int c3Y = bmp.getHeight()/4;
-        int c3R = bmp.getHeight()/5 + new Random().nextInt(bmp.getHeight()/2);
+        int rand2 = new Random().nextInt(bmp.getHeight()/2);
+        picker_42 = rand2;
+        int c3R = bmp.getHeight()/5 + rand2;
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
         canvas.drawCircle(c3X, c3Y, c3R, paint);
         //add source type of cat paws
@@ -468,10 +480,10 @@ public class EditImage extends AppCompatActivity {
                         Settings.Secure.ANDROID_ID);
 
                 String result = "" + color1 + "," + color2 + "," + color3;
-                if(selected == 1) result = result + ",1";
-                if(selected == 2) result = result + ",2";
-                if(selected == 3) result = result + ",3";
-                if(selected == 4) result = result + ",4";
+                if(selected == 1) result = result + ",1," + picker1 + ",0";
+                if(selected == 2) result = result + ",2,"+ picker2+ ",0";
+                if(selected == 3) result = result + ",3,"+ picker3+ ",0";
+                if(selected == 4) result = result + ",4,"+ picker_41 + "," + + picker_42;
                 //post to server
                 try{
                     postImage(android_id, result);
@@ -540,7 +552,7 @@ public class EditImage extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    String url = "HTTP://18.191.10.52:3000/images";
+                    String url = "https://heroic-arbor-303003.uc.r.appspot.com/images";
                     String urlParameters  = "id="+id+"&uri=" + color;
                     InputStream stream = null;
                     byte[] postData = urlParameters.getBytes( StandardCharsets.UTF_8 );
@@ -594,7 +606,7 @@ public class EditImage extends AppCompatActivity {
             public void run() {
                 String results = "";
                 try{
-                    String url = "HTTP://18.191.10.52:3000/image?id=" + id;
+                    String url = "https://heroic-arbor-303003.uc.r.appspot.com/image?id=" + id;
                     InputStream stream = null;
                     URL urlObj = new URL(url);
                     HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
@@ -622,16 +634,77 @@ public class EditImage extends AppCompatActivity {
                         int color1 = Integer.parseInt(formatted[0]);
                         int color2 = Integer.parseInt(formatted[1]);
                         int color3 = Integer.parseInt(formatted[2]);
+                        int selection = Integer.parseInt(formatted[3]);
+                        int picker = Integer.parseInt(formatted[4]);
+                        int picker2 = Integer.parseInt(formatted[5]);
 
-                        switch (formatted[3]){
-                            case "1": EditImage.this.generateType1(color1,color2, color3);
-                            case "2": EditImage.this.generateType2(color1,color2, color3);
-                            case "3": EditImage.this.generateType3(color1,color2, color3);
-                            case "4": EditImage.this.generateType4(color1,color2, color3);
-                        }
+                        generateBitMap(color1,color2,color3,selection,picker,picker2);
                     }
                 });
             }
         });
+    }
+
+    private Bitmap generateBitMap(int color1, int color2, int color3, int selection, int picker, int picker2){
+        Drawable paw = getDrawable(R.drawable.nekotype1);
+
+        switch (selection){
+            case 1: paw = getDrawable(R.drawable.nekotype1);
+            case 2: paw = getDrawable(R.drawable.nekotype2);
+            case 3: paw = getDrawable(R.drawable.nekotype3);
+            case 4: paw = getDrawable(R.drawable.nekotype4);
+        }
+        Bitmap bmp = ((BitmapDrawable) paw).getBitmap();
+        android.graphics.Bitmap.Config bitmapConfig = bmp.getConfig();
+        // set default bitmap config if none
+        if(bitmapConfig == null) {
+            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+        }
+        // convert resource bitmaps are to mutable one
+        bmp = bmp.copy(bitmapConfig, true);
+        Canvas canvas = new Canvas(bmp);
+        //add color changes for type1 paws
+        int[] colorIndex= {color1, color2, color3};
+        Paint paint = new Paint();
+        //add color
+
+        if(selection < 4){
+            int colorID = picker;
+            paint.setColor(colorIndex[colorID]);
+            int c1X = bmp.getWidth()/4;
+            int c1Y = bmp.getHeight()/2;
+            int c1R = bmp.getWidth()/3;
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+            canvas.drawCircle(c1X, c1Y, c1R, paint);
+            //add source type of cat paws
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DARKEN));
+            canvas.drawBitmap(bmp, 0, 0, paint);
+        } else{
+            //add first color
+            paint.setColor(color1);
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+            canvas.drawRect(0,0,bmp.getWidth(),bmp.getHeight(), paint);
+            //add second color
+            paint.setColor(color2);
+            int c2X = bmp.getWidth()/2;
+            int c2Y = 3 * bmp.getHeight()/4;
+            int rand = picker;
+            int c2R = bmp.getHeight()/5 + rand;
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+            canvas.drawCircle(c2X, c2Y, c2R, paint);
+            //add third color
+            paint.setColor(color3);
+            int c3X = 4 * bmp.getWidth()/5;
+            int c3Y = bmp.getHeight()/4;
+            int rand2 = picker2;
+            int c3R = bmp.getHeight()/5 + rand2;
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+            canvas.drawCircle(c3X, c3Y, c3R, paint);
+            //add source type of cat paws
+            paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.OVERLAY));
+            canvas.drawBitmap(bmp, 0, 0, paint);
+        }
+
+        return bmp;
     }
 }

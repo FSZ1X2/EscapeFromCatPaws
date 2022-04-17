@@ -135,7 +135,7 @@ public class CheckScore extends AppCompatActivity {
             public void run() {
                 String results = "";
                 try{
-                    String url = global? "HTTP://18.191.10.52:3000/topg" : "HTTP://18.191.10.52:3000/top?id=" + id;
+                    String url = global? "https://heroic-arbor-303003.uc.r.appspot.com/topg" : "https://heroic-arbor-303003.uc.r.appspot.com/top?id=" + id;
                     InputStream stream = null;
                     URL urlObj = new URL(url);
                     HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
