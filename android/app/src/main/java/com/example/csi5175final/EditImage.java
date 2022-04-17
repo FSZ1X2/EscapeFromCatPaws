@@ -487,9 +487,10 @@ public class EditImage extends AppCompatActivity {
                 //post to server
                 try{
                     postImage(android_id, result);
+                    Toast.makeText(EditImage.this, "Cat paw saved!", Toast.LENGTH_SHORT);
 
                 } catch (Exception e){
-                    Toast.makeText(EditImage.this, "failed to save paw!", Toast.LENGTH_LONG);
+                    Toast.makeText(EditImage.this, "failed to save paw!", Toast.LENGTH_SHORT);
                 }
             }
         });
@@ -591,11 +592,4 @@ public class EditImage extends AppCompatActivity {
             }
         });
     }
-
-    /**
-     * Function to get stored color int value from DB. This function can be moved to the class where
-     * we need to read the stored color value. Then call the same generateType method.
-     * The value stored in DB is "[color1],[color2],[color3],[paw_type]". This will always get the latest stored color value.
-     * */
-
 }
