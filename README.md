@@ -78,3 +78,5 @@ Advanced features:
 - Menu bar:
   - we made menu_bar.xml to initial a menu bar object as well as items in that bar for our app.
   - we implemented this menu object and created menu bar for each scene.
+- Push notification:
+  - we added Firebase SDK and using Firebase console to send cloud message.
