@@ -40,11 +40,11 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         thread = new MainThread(getHolder(), this);
 
         playerColor = color;
-        player = new Player(new Rect(100,100,500,500), playerColor);
+        player = new Player(new Rect(100,100,350,350), playerColor);
         playerPoint = new Point(Constants.SCREEN_WIDTH/2,3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
 
-        obstacleManager = new ObstacleManager(200, 350, 200);
+        obstacleManager = new ObstacleManager(450, 450, 200);
 
         setFocusable(true);
     }
@@ -53,10 +53,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
      * function for reset everything for the game.
      */
     public void reset(){
-        player = new Player(new Rect(100,100,500,500), playerColor);
+        player = new Player(new Rect(100,100,350,350), playerColor);
         playerPoint = new Point(Constants.SCREEN_WIDTH/2,3*Constants.SCREEN_HEIGHT/4);
         player.update(playerPoint);
-        obstacleManager = new ObstacleManager(200, 350, 200);
+        obstacleManager = new ObstacleManager(450, 450, 200);
         movingPlayer = false;
     }
 

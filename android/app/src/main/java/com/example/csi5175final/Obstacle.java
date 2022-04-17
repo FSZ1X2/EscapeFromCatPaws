@@ -10,9 +10,9 @@ import java.util.Random;
 
 public class Obstacle implements GameObject {
     private Rect rectangle;
-    //determine which side the cat paws will appear
-    // left:0 and right:1
-    private int LoR = new Random().nextInt(2);
+//    //determine which side the cat paws will appear
+//    // left:0 and right:1
+//    private int LoR = new Random().nextInt(2);
     private Bitmap paw;
 
     private void scaleRect(Rect rect) {
@@ -46,10 +46,10 @@ public class Obstacle implements GameObject {
      * @param playerGap use this param to make sure player will have a chance to avoid cat paws.
      */
     public Obstacle(int rectHeight, int startX, int startY, int playerGap) {
-        if(LoR==0)
-            rectangle = new Rect(0, startY, startX, startY + rectHeight);
-        else
-            rectangle = new Rect(startX + playerGap, startY, Constants.SCREEN_WIDTH, startY + rectHeight);
+//        if(LoR==0)
+            rectangle = new Rect(startX, startY, startX + playerGap, startY + rectHeight);
+//        else
+//            rectangle = new Rect(startX + playerGap, startY, Constants.SCREEN_WIDTH, startY + rectHeight);
 
         //TODO: randomly get cat paws from database
         BitmapFactory bf = new BitmapFactory();
